@@ -8,22 +8,22 @@ pipeline {
         }
         stage('Restore Dependencies') {
             steps {
-                sh 'dotnet restore'
+               bat 'dotnet restore'
             }
         }
         stage('Build') {
             steps {
-                sh 'dotnet build'
+               bat 'dotnet build'
             }
         }
         stage('Publish') {
             steps {
-                sh 'dotnet publish -o ./publish'
+               bat 'dotnet publish -o ./publish'
             }
         }
         stage('Deploy') {
             steps {
-                sh '''
+               bat '''
                 docker build -t dotnet-api:latest .
                 docker run -d -p 5275:5275 --name dotnet-api dotnet-api:latest
                 '''
